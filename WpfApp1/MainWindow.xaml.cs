@@ -27,12 +27,14 @@ namespace WpfApp1
     {
         public HiveMQClient Client;
         public string AnswerTopic;
+        public bool NeedAnswer;
 
         public void OnMessageReceived(object Sender, OnMessageReceivedEventArgs args)
         {
             var output = JsonConvert.DeserializeObject<Response>(args.PublishMessage.PayloadAsString);
             Console.WriteLine(output.Question);
             AnswerTopic = output.TopicToPublishAnswerTo;
+            NeedAnswer = true;
         }
 
 
@@ -63,8 +65,11 @@ namespace WpfApp1
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await Client.PublishAsync(AnswerTopic, Answer.Text);
-            await Client.DisconnectAsync().ConfigureAwait(false);
+            if (NeedAnswer)
+            {
+                await Client.PublishAsync(AnswerTopic, Answer.Text);
+                await Client.DisconnectAsync().ConfigureAwait(false);
+            }
         }
     }
     public class Response
