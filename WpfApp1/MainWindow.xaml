@@ -9,5 +9,6 @@
     <Grid>
         <Button Content="test" Height="50" Width="200" Click="Button_Click" Margin="26,363,574,21"></Button>
         <TextBox x:Name="Answer" HorizontalAlignment="Left" Height="28" Margin="26,74,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="147"/>
+        <Label x:Name="Question" Content="Label" HorizontalAlignment="Left" Height="29" Margin="26,28,0,0" VerticalAlignment="Top" Width="147"/>
     </Grid>
 </Window>

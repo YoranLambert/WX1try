@@ -32,7 +32,7 @@ namespace WpfApp1
         public void OnMessageReceived(object Sender, OnMessageReceivedEventArgs args)
         {
             var output = JsonConvert.DeserializeObject<Response>(args.PublishMessage.PayloadAsString);
-            Console.WriteLine(output.Question);
+            Question.Content = output.Question;
             AnswerTopic = output.TopicToPublishAnswerTo;
             NeedAnswer = true;
         }
