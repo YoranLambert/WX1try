@@ -4,6 +4,7 @@ using HiveMQtt.Client.Options;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -46,11 +47,12 @@ namespace WpfApp1
         private async void Connect()
         {
             var options = new HiveMQClientOptions();
-            options.Host = "ce6b74a7cccc45cb8db551fc2d7394bb.s2.eu.hivemq.cloud";
+            options.Host = "508b55b4d3794a40af7e9ade9d709bee.s2.eu.hivemq.cloud";
             options.Port = 8883;
             options.UseTLS = true;
-            options.UserName = "wx1mqttdemo2324jh1";
-            options.Password = "4iJv8fiAdJ4mzcsbdw6i";
+            options.UserName = "Boars";
+            options.Password = "BoarCrane1";
+            options.CleanStart = true;
 
             Client = new HiveMQClient(options);
             await Client.ConnectAsync().ConfigureAwait(false);
@@ -68,8 +70,12 @@ namespace WpfApp1
             if (NeedAnswer)
             {
                 await Client.PublishAsync(AnswerTopic, Answer.Text);
-                await Client.DisconnectAsync().ConfigureAwait(false);
             }
+        }
+        protected async override void OnClosing(CancelEventArgs e)
+        {
+            await Client.DisconnectAsync().ConfigureAwait(false);
+            base.OnClosing(e);
         }
     }
     public class Response
